@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<HTA:APPLICATION
+	APPLICATIONNAME = "VANISH"
+	ID="Vanish"
+	ICON = "icon.ico"
+	BORDER="none"
+	SHOWINTASKBAR="yes"
+	SINGLEINSTANCE="yes"
+	SYSMENU="no"
+	WINDOWSTATE="maximize"
+	SCROLL="no"
+	VERSION="1.0"
+	CONTEXTMENU="no"
+	INNERBORDER="no"
+	SELECTION="no"
+/>
+
+<head>
+
+<style type="text/css">
+
+	html, body 
+	{
+  	height: 100%;
+  	margin: 0;
+  	background-color:#FFFFFF;
+	}
+
+	.full-height 
+	{
+  	height: 100%;
+  	background: black;
+  	cursor: url('cursor.cur');
+	}
+
+</style>
+
+<script language="vbscript">
+
+	Dim Excel, x, y
+	Set Excel = CreateObject("Excel.Application")
+	Randomize
+	x = Rnd*1000
+	y = Rnd*1000
+	Excel.ExecuteExcel4Macro ( _
+    "CALL(""user32"",""SetCursorPos"",""JJJ""," & x & "," & y & ")")
+
+</script>
+</head>
+
+<body>
+<div id="d" class="full-height"></div>
+</body>
+
+</html>
