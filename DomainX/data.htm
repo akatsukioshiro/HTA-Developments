@@ -7,7 +7,9 @@
 * {
   box-sizing: border-box;
 }
-
+*:focus {
+    outline: none;
+}
 body {
   margin: 0;
   font-family: Arial;
@@ -34,10 +36,10 @@ body {
 }
 #loginbox {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 100px;
+  height: 100px;
   z-index: 15;
-  margin: -200px 0 0 -200px;
+  margin: -50px 0 0 -50px;
   background: rgba(0,0,0,0.6);
   border-style: solid;
   border-width: 0px 0px 0px 0px;
@@ -62,7 +64,7 @@ body {
 <input type="text" name="MouseX" value="0" size="7"> X<br>
 <input type="text" name="MouseY" value="0" size="7"> Y<br>
 </form>
-<div id="loginbox"><div>  
+<div id="loginbox" onmousedown="shoot()" onmouseup="reload()"><div>  
 </div>
 
 <script language="javascript">
@@ -89,10 +91,10 @@ function getMouseXY(e) {
   if (tempX < 0){tempX = 0}
   if (tempY < 0){tempY = 0}  
 
-  document.Show.MouseX.value = tempX
+document.Show.MouseX.value = tempX
   document.Show.MouseY.value = tempY
 var xx=(tempX/screen.width)*100
-var yy=(tempY/screen.height)*100
+var yy=(tempY/screen.height)*115
 console.log(xx);
 console.log(yy);
   document.getElementById('loginbox').style.left =xx+"%"
@@ -100,7 +102,14 @@ console.log(yy);
   
   return true
 }
-
+function shoot()
+{
+document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
+}
+function reload()
+{
+document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
+}
 
 </script>
 
