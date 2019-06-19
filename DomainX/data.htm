@@ -25,54 +25,83 @@ body {
 .content {
   position: fixed;
   top: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255,255,255, 0);
   color: #f1f1f1;
   width: 100%;
   height:100%;
   padding: 20px;
   cursor:none;
 }
-
-#myBtn {
-  width: 200px;
-  font-size: 18px;
-  padding: 10px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
+#loginbox {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  z-index: 15;
+  margin: -200px 0 0 -200px;
+  background: rgba(0,0,0,0.6);
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+  border-radius: 50%;
+  border-color: rgba(255,255,255,1) rgba(255,255,255,0.4) rgba(255,255,255,0.4) rgba(255,255,255,0.6);
+  box-shadow: 0 0 18px 8px #0276FD;
 }
 
-#myBtn:hover {
-  background: #ddd;
-  color: black;
+
 }
 </style>
 </head>
 <body>
 
 <video autoplay muted loop id="myVideo">
-  <source src="glow.mp4" type="video/mp4">
+  <source src="MOVE.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
 </video>
 
 <div class="content">
-  
+<form name="Show">
+<input type="text" name="MouseX" value="0" size="7"> X<br>
+<input type="text" name="MouseY" value="0" size="7"> Y<br>
+</form>
+<div id="loginbox"><div>  
 </div>
 
 <script language="javascript">
-var video = document.getElementById("myVideo");
-var btn = document.getElementById("myBtn");
+var s= document.all?true:false
 
-function myFunction() {
-  if (video.paused) {
-    video.play();
-    btn.innerHTML = "Pause";
-  } else {
-    video.pause();
-    btn.innerHTML = "Play";
-  }
+if (!s) document.captureEvents(Event.MOUSEMOVE)
+
+document.onmousemove = getMouseXY;
+
+var tempX = 0
+var tempY = 0
+document.getElementById('loginbox').style.left=0+"%";
+document.getElementById('loginbox').style.top=0+"%";
+
+function getMouseXY(e) {
+  if (s) { 
+    tempX = event.clientX + document.body.scrollLeft
+    tempY = event.clientY + document.body.scrollTop
+  } else {  
+    tempX = e.pageX
+    tempY = e.pageY
+  }  
+
+  if (tempX < 0){tempX = 0}
+  if (tempY < 0){tempY = 0}  
+
+  document.Show.MouseX.value = tempX
+  document.Show.MouseY.value = tempY
+var xx=(tempX/screen.width)*100
+var yy=(tempY/screen.height)*100
+console.log(xx);
+console.log(yy);
+  document.getElementById('loginbox').style.left =xx+"%"
+  document.getElementById('loginbox').style.top =yy+"%"
+  
+  return true
 }
+
+
 </script>
 
 </body>
