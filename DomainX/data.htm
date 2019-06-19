@@ -23,12 +23,13 @@ body {
 
 .content {
   position: fixed;
-  top: 0;
+  display:block;
+  margin :0;
   background: rgba(255,255,255, 0);
   color: #f1f1f1;
   width: 100%;
   height:100%;
-  padding: 20px;
+  padding: 0px;
   cursor:none;
 }
 #loginbox {
@@ -81,12 +82,12 @@ input[type="text"], textarea, [contenteditable]
   Your browser does not support HTML5 video.
 </video>
 
-<div class="content">
+<div class="content" onmousedown="shoot(event)" onmouseup="reload()">
 <form name="Show" class="fm">
 <input class="fm" type="text" name="MouseX" value="0" size="7"> X<br>
 <input class="fm" type="text" name="MouseY" value="0" size="7"> Y<br>
 </form>
-<div id="loginbox" onmousedown="shoot()" onmouseup="reload()"><div>  
+<div id="loginbox" ></div>  
 </div>
 
 <script language="javascript">
@@ -124,15 +125,20 @@ var yy=(tempY/screen.height)*115
   
   return true
 }
-function shoot()
-{
-document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
-}
 function reload()
 {
 document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
 }
-
+function shoot(event)
+{
+if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
+else if(event.button===2)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px green";
+}
+function WhichButton(event) {
+  if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
+  else if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
+  setTimeout(WhichButton(event), 70);
+}
 </script>
 
 </body>
