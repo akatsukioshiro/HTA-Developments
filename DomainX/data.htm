@@ -83,6 +83,7 @@ input[type="text"], textarea, [contenteditable]
 </video>
 
 <div class="content" onmousedown="shoot(event)" onmouseup="reload()">
+<svg id="con" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; position: absolute;"></svg>
 <form name="Show" class="fm">
 <input class="fm" type="text" name="MouseX" value="0" size="7"> X<br>
 <input class="fm" type="text" name="MouseY" value="0" size="7"> Y<br>
@@ -91,6 +92,10 @@ input[type="text"], textarea, [contenteditable]
 </div>
 
 <script language="javascript">
+var sx=0;
+var sy=0;
+var ex=0;
+var ey=0;
 var s= document.all?true:false
 
 if (!s) document.captureEvents(Event.MOUSEMOVE)
@@ -125,19 +130,38 @@ var yy=(tempY/screen.height)*115
   
   return true
 }
+
 function reload()
 {
+ex=document.Show.MouseX.value;
+ey=document.Show.MouseY.value;
+svg(sx,sy,ex,ey);
 document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
 }
 function shoot(event)
 {
+sx=document.Show.MouseX.value;
+sy=document.Show.MouseY.value;
 if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
-else if(event.button===2)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px green";
+else if(event.button===2)
+{
+document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px green";
+var master = document.getElementById('con');
+for(var i=document.getElementsByTagName('line').length;i>=1;i--)
+{
+master.removeChild(document.getElementsByTagName('line')[0]);
 }
-function WhichButton(event) {
-  if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
-  else if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
-  setTimeout(WhichButton(event), 70);
+}
+}
+function svg(x1,y1,x2,y2) {
+var newLine = document.createElementNS('http://www.w3.org/2000/svg','line');
+newLine.setAttribute('id','line2');
+newLine.setAttribute('x1',x1);
+newLine.setAttribute('y1',y1);
+newLine.setAttribute('x2',x2);
+newLine.setAttribute('y2',y2);
+newLine.setAttribute("stroke", "white")
+document.getElementById('con').appendChild(newLine);
 }
 </script>
 
