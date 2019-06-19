@@ -7,9 +7,6 @@
 * {
   box-sizing: border-box;
 }
-*:focus {
-    outline: none;
-}
 body {
   margin: 0;
   font-family: Arial;
@@ -47,9 +44,34 @@ body {
   border-color: rgba(255,255,255,1) rgba(255,255,255,0.4) rgba(255,255,255,0.4) rgba(255,255,255,0.6);
   box-shadow: 0 0 18px 8px #0276FD;
 }
-
-
+.fm::selection 
+{
+    background-color:transparent;
+} 
+.fm::-moz-selection
+{
+    background-color:transparent;
 }
+.fm
+{        
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    /*IE10*/
+    -ms-user-select: none;
+    user-select: none;
+
+    /*You just need this if you are only concerned with android and not desktop browsers.*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}    
+input[type="text"], textarea, [contenteditable]
+{
+
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
 </style>
 </head>
 <body>
@@ -60,9 +82,9 @@ body {
 </video>
 
 <div class="content">
-<form name="Show">
-<input type="text" name="MouseX" value="0" size="7"> X<br>
-<input type="text" name="MouseY" value="0" size="7"> Y<br>
+<form name="Show" class="fm">
+<input class="fm" type="text" name="MouseX" value="0" size="7"> X<br>
+<input class="fm" type="text" name="MouseY" value="0" size="7"> Y<br>
 </form>
 <div id="loginbox" onmousedown="shoot()" onmouseup="reload()"><div>  
 </div>
@@ -95,8 +117,8 @@ document.Show.MouseX.value = tempX
   document.Show.MouseY.value = tempY
 var xx=(tempX/screen.width)*100
 var yy=(tempY/screen.height)*115
-console.log(xx);
-console.log(yy);
+//console.log(xx);
+//console.log(yy);
   document.getElementById('loginbox').style.left =xx+"%"
   document.getElementById('loginbox').style.top =yy+"%"
   
