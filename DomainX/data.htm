@@ -102,6 +102,8 @@ var sy=0;
 var ex=0;
 var ey=0;
 var press=0;
+var sizer=0;
+var strokew=80;
 var lin="";
 var s= document.all?true:false
 
@@ -148,7 +150,7 @@ function reload()
 
 ex=document.Show.MouseX.value;
 ey=document.Show.MouseY.value;
-if(press===1)poly(lin);//svg(sx,sy,ex,ey);
+if(press===1)poly(lin,strokew);//svg(sx,sy,ex,ey);
 
 document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
 }
@@ -179,12 +181,12 @@ newLine.setAttribute("stroke", "white");
 newLine.setAttribute("stroke-width",20);
 document.getElementById('con').appendChild(newLine);
 }
-function poly(lin) {
+function poly(lin,strokew) {
 var newLine = document.createElementNS('http://www.w3.org/2000/svg','polyline');
 newLine.setAttribute('id','poly');
 newLine.setAttribute('points',lin);
 newLine.setAttribute("stroke", "white");
-newLine.setAttribute("stroke-width",80);
+newLine.setAttribute("stroke-width",strokew);
 newLine.setAttribute("fill","none");
 document.getElementById('con').appendChild(newLine);
 }
@@ -197,6 +199,78 @@ press=1;
 document.getElementById('loginbox').style.height="100px";
 document.getElementById('loginbox').style.width="100px";
 document.getElementById('loginbox').style.margin = "-50px 0px 0px -50px";
+strokew=80;
+}
+else if((x===43 || x===61) && press===1)
+{console.log(x);
+if(sizer===0)
+{
+document.getElementById('loginbox').style.height="150px";
+document.getElementById('loginbox').style.width="150px";
+document.getElementById('loginbox').style.margin = "-75px 0px 0px -75px";
+sizer=1;
+strokew=130;
+}
+else if(sizer===1)
+{
+document.getElementById('loginbox').style.height="200px";
+document.getElementById('loginbox').style.width="200px";
+document.getElementById('loginbox').style.margin = "-100px 0px 0px -100px";
+sizer=2;
+strokew=180;
+}
+else if(sizer===2)
+{
+document.getElementById('loginbox').style.height="250px";
+document.getElementById('loginbox').style.width="250px";
+document.getElementById('loginbox').style.margin = "-125px 0px 0px -125px";
+sizer=3;
+strokew=230;
+}
+else if(sizer===3)
+{
+document.getElementById('loginbox').style.height="300px";
+document.getElementById('loginbox').style.width="300px";
+document.getElementById('loginbox').style.margin = "-150px 0px 0px -150px";
+sizer=4;
+strokew=280;
+}
+}
+else if((x===45 || x===95) && press===1)
+{
+console.log(x);
+if(sizer===1)
+{
+document.getElementById('loginbox').style.height="100px";
+document.getElementById('loginbox').style.width="100px";
+document.getElementById('loginbox').style.margin = "-50px 0px 0px -50px";
+sizer=0;
+strokew=80;
+}
+else if(sizer===2)
+{
+document.getElementById('loginbox').style.height="150px";
+document.getElementById('loginbox').style.width="150px";
+document.getElementById('loginbox').style.margin = "-75px 0px 0px -75px";
+sizer=1;
+strokew=130;
+}
+else if(sizer===3)
+{
+document.getElementById('loginbox').style.height="200px";
+document.getElementById('loginbox').style.width="200px";
+document.getElementById('loginbox').style.margin = "-100px 0px 0px -100px";
+sizer=2;
+strokew=180;
+}
+else if(sizer===4)
+{
+document.getElementById('loginbox').style.height="250px";
+document.getElementById('loginbox').style.width="250px";
+document.getElementById('loginbox').style.margin = "-125px 0px 0px -125px";
+sizer=3;
+strokew=230;
+}
 }
 else if((x===122 || x===90) && press===1)
 {
