@@ -103,6 +103,7 @@ var ex=0;
 var ey=0;
 var press=0;
 var sizer=0;
+var inv=0;
 var strokew=80;
 var lin="";
 var s= document.all?true:false
@@ -200,6 +201,21 @@ document.getElementById('loginbox').style.height="100px";
 document.getElementById('loginbox').style.width="100px";
 document.getElementById('loginbox').style.margin = "-50px 0px 0px -50px";
 strokew=80;
+}
+else if((x===73 || x===105) && press===1)
+{
+if(inv===0)
+{
+document.getElementById('con').style.height="0%";
+document.getElementById('con').style.width="0p%";
+inv=1;
+}
+else if(inv===1)
+{
+document.getElementById('con').style.height="100%";
+document.getElementById('con').style.width="100%";
+inv=0;
+} 
 }
 else if((x===43 || x===61) && press===1)
 {console.log(x);
