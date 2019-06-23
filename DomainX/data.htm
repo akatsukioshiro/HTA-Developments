@@ -12,7 +12,6 @@ body {
   font-family: Arial;
   font-size: 17px;
 }
-
 #myVideo {
   position: fixed;
   right: 0;
@@ -20,7 +19,6 @@ body {
   min-width: 100%; 
   min-height: 100%;
 }
-
 .content {
   position: fixed;
   display:block;
@@ -65,19 +63,16 @@ pointer-event:none;
     /*IE10*/
     -ms-user-select: none;
     user-select: none;
-
     /*You just need this if you are only concerned with android and not desktop browsers.*/
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }    
 input[type="text"], textarea, [contenteditable]
 {
-
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
 }
-
 </style>
 </head>
 <body onload="document.getElementById('pop').focus()">
@@ -105,18 +100,15 @@ var press=0;
 var sizer=0;
 var inv=0;
 var strokew=80;
+var erase=0;
 var lin="";
 var s= document.all?true:false
-
 if (!s) document.captureEvents(Event.MOUSEMOVE)
-
 document.onmousemove = getMouseXY;
-
 var tempX = 0
 var tempY = 0
 document.getElementById('loginbox').style.left=0+"%";
 document.getElementById('loginbox').style.top=0+"%";
-
 function getMouseXY(e) {
   if (s) { 
     tempX = event.clientX + document.body.scrollLeft
@@ -125,10 +117,8 @@ function getMouseXY(e) {
     tempX = e.pageX
     tempY = e.pageY
   }  
-
   if (tempX < 0){tempX = 0}
   if (tempY < 0){tempY = 0}  
-
 document.Show.MouseX.value = tempX
   document.Show.MouseY.value = tempY
 var xx=(tempX/screen.width)*100
@@ -144,22 +134,19 @@ if(press===1)
 }
   return true
 }
-
 function reload()
 {
 //alert(lin);
-
 ex=document.Show.MouseX.value;
 ey=document.Show.MouseY.value;
-if(press===1)poly(lin,strokew);//svg(sx,sy,ex,ey);
-
+if(press===1 && erase===0)poly(lin,strokew);//svg(sx,sy,ex,ey);
+if(press===1 && erase===1)eraser(lin,strokew);
 document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px #0276FD";
 }
 function shoot(event)
 {lin="";
 sx=document.Show.MouseX.value;
 sy=document.Show.MouseY.value;
-
 if(event.button===0)document.getElementById('loginbox').style.boxShadow = "0px 0px 18px 8px red";
 else if(event.button===2)
 {
@@ -215,6 +202,17 @@ else if(inv===1)
 document.getElementById('con').style.height="100%";
 document.getElementById('con').style.width="100%";
 inv=0;
+} 
+}
+else if((x===69 || x===101) && press===1)
+{
+if(erase===0)
+{
+erase=1;
+}
+else if(erase===1)
+{
+erase=0;
 } 
 }
 else if((x===43 || x===61) && press===1)
@@ -294,6 +292,31 @@ press=0;
 document.getElementById('loginbox').style.height="20px";
 document.getElementById('loginbox').style.width="20px";
 document.getElementById('loginbox').style.margin = "-10px 0px 0px -10px";
+}
+}
+function eraser(lin,strokew)
+{
+var correct="";
+var re=new RegExp(",", 'g');
+lin=lin.replace(re," ");
+var toErase=lin.split(" ");
+toErase.pop();
+//alert(toErase);
+var all="";
+for(var i=0;i<document.getElementsByTagName('polyline').length;i++)
+{
+var doc=document.getElementsByTagName('polyline')[i];
+var pts=doc.getAttribute('points');
+pts=pts.replace(re," ");
+var toE=pts.split(" ");
+toE.pop();
+//alert(toE);
+for(var ch=0;ch<toErase.length-1;ch+=2)
+for(var c=0;c<toE.length-1;c+=2)
+if((toErase[ch]===toE[c])||(toErase[ch+1]===toE[c+1]))
+all=toErase[ch]+","+toErase[ch+1]+" "+all;
+doc.setAttribute('points',all);
+
 }
 }
 </script>
